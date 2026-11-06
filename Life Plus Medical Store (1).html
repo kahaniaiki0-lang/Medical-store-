@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="hi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Plus Medical Store - Near KMC Hospital | 24/7 Pharmacy</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            blue: '#0284c7',
+                            navy: '#0f172a',
+                            lightbg: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0284c7 0%, #059669 100%);
+        }
+        .pulse-whatsapp {
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .sos-mode-active {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+        }
+        .scanner-laser {
+            height: 3px;
+            background: #10b981;
+            box-shadow: 0 0 15px #10b981, 0 0 5px #10b981;
+            position: absolute;
+            width: 100%;
+            animation: scan 2s infinite ease-in-out;
+        }
+        @keyframes scan {
+            0% { top: 0%; }
+            50% { top: 95%; }
+            100% { top: 0%; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased selection:bg-emerald-500 selection:text-white transition-colors duration-300" id="mainBody">
+
+    <!-- Top Emergency Bar & Language Selector -->
+    <div class="bg-slate-900 text-white text-xs md:text-sm py-2 px-4 border-b border-slate-800">
+        <div class="container mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-3">
+                <span class="bg-red-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold animate-pulse flex items-center gap-1">
+                    <i class="fa-solid fa-truck-medical"></i> <span data-key="top_247">24/7 OPEN</span>
+                </span>
+                <span class="hidden sm:inline text-slate-300" data-key="top_location"><i class="fa-solid fa-location-dot text-emerald-400 mr-1"></i> Near KMC Hospital, Maharajganj</span>
+            </div>
+
+            <div class="flex items-center gap-3 text-xs">
+                <!-- SOS Night Emergency Toggle -->
+                <button onclick="toggleSOSMode()" id="sosBtn" class="bg-red-500/20 hover:bg-red-500/40 border border-red-500/50 text-red-300 px-3 py-1 rounded-full font-semibold transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-triangle-exclamation text-red-400"></i>
+                    <span id="sosBtnText">Night SOS Mode</span>
+                </button>
+
+                <!-- Language Switcher -->
+                <button onclick="toggleLanguage()" class="bg-emerald-800 hover:bg-emerald-700 text-emerald-100 px-3 py-1 rounded-full font-bold transition flex items-center gap-1 border border-emerald-600">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="langBtnText">EN / हिंदी</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5 text-decoration-none">
+                <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white shadow-md">
+                    <i class="fa-solid fa-kit-medical text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900 block leading-none">LIFE PLUS</span>
+                    <span class="text-[10px] font-bold text-emerald-600 block tracking-widest uppercase mt-0.5" data-key="sub_title">Medical & Healthcare</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-6 font-medium text-slate-600 text-sm">
+                <a href="#home" class="hover:text-emerald-600 transition" data-key="nav_home">Home</a>
+                <a href="#scanner" class="hover:text-emerald-600 transition flex items-center gap-1 text-emerald-600 font-bold"><i class="fa-solid fa-camera"></i> <span data-key="nav_rx">Rx Scanner</span></a>
+                <a href="#shop" class="hover:text-emerald-600 transition" data-key="nav_shop">Quick Shop & Cart</a>
+                <a href="#kmc-helper" class="hover:text-emerald-600 transition" data-key="nav_kmc">KMC Hospital Info</a>
+                <a href="#reminders" class="hover:text-emerald-600 transition" data-key="nav_pill">Pill Alert</a>
+                <a href="#location" class="hover:text-emerald-600 transition" data-key="nav_contact">Contact</a>
+            </nav>
+
+            <!-- Quick Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="#cart" class="relative bg-emerald-50 hover:bg-emerald-100 text-emerald-700 p-2.5 rounded-xl transition flex items-center justify-center">
+                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                    <span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                </a>
+
+                <a href="tel:+917309186695" class="hidden sm:flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-2 rounded-xl text-sm font-bold transition">
+                    <i class="fa-solid fa-phone text-emerald-600"></i> Call
+                </a>
+
+                <a href="https://wa.me/917309186695?text=Hello%20Life%20Plus%20Medical%20Store,%20mujhe%20medicine%20order%20karni%20hai." 
+                   target="_blank" 
+                   class="bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-2 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md hover:shadow-lg transition">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> <span class="hidden xs:inline">WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Emergency SOS Banner (Hidden by default, enabled by SOS Toggle) -->
+    <div id="sosBanner" class="hidden bg-red-600 text-white py-4 px-4 shadow-inner text-center">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3 text-left">
+                <i class="fa-solid fa-circle-exclamation text-3xl animate-bounce"></i>
+                <div>
+                    <h3 class="font-extrabold text-lg leading-tight" data-key="sos_title">NIGHT EMERGENCY / CRITICAL MEDICAL ASSISTANCE ACTIVE</h3>
+                    <p class="text-xs text-red-100" data-key="sos_subtitle">Urgent Delivery for Oxygen, ICU Supplies, Insulin, and Emergency Medicines to KMC Hospital & Nearby.</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <a href="tel:+917309186695" class="bg-white text-red-600 hover:bg-red-50 font-extrabold px-5 py-2.5 rounded-xl text-sm shadow-md transition flex items-center gap-2">
+                    <i class="fa-solid fa-phone-volume"></i> Emergency Call: 7309186695
+                </a>
+                <a href="https://wa.me/917309186695?text=EMERGENCY%20ORDER:%20Urgent%20medical%20help%20needed!" target="_blank" class="bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> SOS WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white py-14 md:py-20 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 px-3.5 py-1.5 rounded-full text-xs md:text-sm font-semibold mb-5">
+                    <i class="fa-solid fa-location-dot"></i> <span data-key="hero_badge">Located Right Opposite KMC Hospital Entrance</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight mb-4" data-key="hero_title">
+                    Aapki Sehat, Hamari Zimmedari.<br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">100% Genuine Medicines & Urgent Delivery</span>
+                </h1>
+                <p class="text-slate-300 text-sm md:text-base mb-8 leading-relaxed max-w-2xl" data-key="hero_desc">
+                    Get all prescribed medicines, surgical instruments, baby care items, and wellness supplements with instant WhatsApp ordering and express ward delivery for KMC Hospital patients.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3.5">
+                    <a href="#scanner" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-3.5 rounded-xl font-bold text-sm md:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-600/30 transition transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-camera text-lg"></i> <span data-key="hero_btn_scan">Scan Doctor Prescription</span>
+                    </a>
+                    <a href="#shop" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-3.5 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 backdrop-blur-sm transition">
+                        <i class="fa-solid fa-cart-flatbed font-bold"></i> <span data-key="hero_btn_cart">Quick Order & Cart</span>
+                    </a>
+                    <a href="tel:+917309186695" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 px-4 py-3.5 rounded-xl font-bold text-sm md:text-base flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-phone"></i> 7309186695
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW FEATURE 1: Smart Prescription Scanner & OCR Simulator -->
+    <section id="scanner" class="py-12 bg-white border-b border-slate-200">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden">
+                <div class="flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-full md:w-1/2">
+                        <div class="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold mb-3">
+                            <i class="fa-solid fa-bolt"></i> SMART AI RX EXTRACTOR
+                        </div>
+                        <h2 class="text-2xl font-bold mb-2" data-key="rx_title">Scan & Read Prescription</h2>
+                        <p class="text-slate-300 text-xs md:text-sm mb-4" data-key="rx_subtitle">Take a photo or upload your doctor's slip. Our smart tool extracts medicine names automatically so you can order directly on WhatsApp.</p>
+                        
+                        <!-- Upload Controls -->
+                        <div class="space-y-3">
+                            <label class="block cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold py-3 px-4 rounded-xl shadow transition text-sm">
+                                <i class="fa-solid fa-camera mr-2"></i> <span data-key="rx_btn_upload">Capture / Choose Prescription Slip</span>
+                                <input type="file" id="rxFileInput" accept="image/*" class="hidden" onchange="processPrescriptionImage(event)">
+                            </label>
+                            <p class="text-slate-400 text-[11px] text-center" data-key="rx_privacy"><i class="fa-solid fa-shield-halved text-emerald-400"></i> Safe & Private. Instant preview generated locally.</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Scanning Canvas Display -->
+                    <div class="w-full md:w-1/2 bg-slate-800 rounded-2xl p-4 border border-slate-700 relative min-h-[220px] flex flex-col items-center justify-center text-center" id="scanContainer">
+                        <div id="scanPlaceholder" class="py-6">
+                            <i class="fa-solid fa-file-prescription text-4xl text-slate-600 mb-2"></i>
+                            <p class="text-slate-400 text-xs" data-key="rx_placeholder">Prescription preview will appear here</p>
+                        </div>
+                        
+                        <!-- Dynamic Image & Laser Scan Effect -->
+                        <div id="scanActiveArea" class="hidden w-full relative overflow-hidden rounded-lg">
+                            <div class="scanner-laser"></div>
+                            <img id="rxPreviewImg" src="" alt="Prescription" class="w-full h-44 object-cover rounded-lg">
+                        </div>
+
+                        <!-- OCR Extracted Output Box -->
+                        <div id="ocrResultBox" class="hidden w-full mt-3 bg-slate-900/90 p-3 rounded-xl border border-emerald-500/40 text-left text-xs">
+                            <div class="flex justify-between items-center text-emerald-400 font-bold mb-1">
+                                <span><i class="fa-solid fa-circle-check"></i> Detected Medicines:</span>
+                                <span class="text-[10px] bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Confidence: 98%</span>
+                            </div>
+                            <ul id="detectedMedList" class="text-slate-200 list-disc list-inside space-y-0.5 text-[11px] font-mono">
+                                <!-- JS inserts extracted medicines -->
+                            </ul>
+                            <button onclick="sendExtractedRxToWhatsApp()" class="w-full mt-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 rounded-lg text-xs flex items-center justify-center gap-2 shadow">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> <span data-key="rx_send_wa">Send Extracted Medicines to WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW FEATURE 2: Interactive Smart Shopping & Bill Estimator -->
+    <section id="shop" class="py-14 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+                <div>
+                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest" data-key="shop_tag">INSTANT CATALOGUE & CART</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900" data-key="shop_title">Medicines & Healthcare Supplies</h2>
+                </div>
+                
+                <!-- Live Search Bar -->
+                <div class="w-full md:w-80">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400"></i>
+                        <input type="text" id="medicineSearch" onkeyup="filterMedicines()" placeholder="Search medicine, syrups, equipments..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm shadow-sm bg-white">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Medicine Items Grid (2 Columns on Desktop) -->
+                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4" id="medicineGrid">
+                    
+                    <!-- Item 1 -->
+                    <div class="med-item bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-emerald-50 text-emerald-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Fever & Pain</span>
+                                <span class="text-xs font-semibold text-slate-400">10 Tablets</span>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-base">Paracetamol 650mg / Dolo</h3>
+                            <p class="text-xs text-slate-500 mt-1">Essential pain & fever relief medicine.</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center pt-3 border-t border-slate-50">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">₹35</span>
+                                <span class="text-lg font-extrabold text-slate-900 ml-1">₹30</span>
+                            </div>
+                            <button onclick="addToCart('Paracetamol 650mg', 30)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="med-item bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-blue-50 text-blue-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Device</span>
+                                <span class="text-xs font-semibold text-slate-400">Digital</span>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-base">Automatic BP Monitor Machine</h3>
+                            <p class="text-xs text-slate-500 mt-1">High accuracy blood pressure monitor with digital screen.</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center pt-3 border-t border-slate-50">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">₹1450</span>
+                                <span class="text-lg font-extrabold text-slate-900 ml-1">₹1190</span>
+                            </div>
+                            <button onclick="addToCart('Automatic BP Monitor', 1190)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="med-item bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-purple-50 text-purple-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Diabetes</span>
+                                <span class="text-xs font-semibold text-slate-400">50 Strips</span>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-base">Glucometer Strips Pack</h3>
+                            <p class="text-xs text-slate-500 mt-1">Blood sugar testing test strips.</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center pt-3 border-t border-slate-50">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">₹750</span>
+                                <span class="text-lg font-extrabold text-slate-900 ml-1">₹650</span>
+                            </div>
+                            <button onclick="addToCart('Glucometer Strips', 650)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="med-item bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-amber-50 text-amber-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Wellness</span>
+                                <span class="text-xs font-semibold text-slate-400">30 Capsules</span>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-base">Multivitamin & Zinc Supplements</h3>
+                            <p class="text-xs text-slate-500 mt-1">Daily immunity and energy booster capsule strip.</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center pt-3 border-t border-slate-50">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">₹180</span>
+                                <span class="text-lg font-extrabold text-slate-900 ml-1">₹145</span>
+                            </div>
+                            <button onclick="addToCart('Multivitamin Capsules', 145)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="med-item bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-pink-50 text-pink-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Baby Care</span>
+                                <span class="text-xs font-semibold text-slate-400">Size M (42 Count)</span>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-base">Premium Baby Diapers</h3>
+                            <p class="text-xs text-slate-500 mt-1">Soft leakage protection diapers for infants.</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center pt-3 border-t border-slate-50">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">₹699</span>
+                                <span class="text-lg font-extrabold text-slate-900 ml-1">₹599</span>
+                            </div>
+                            <button onclick="addToCart('Baby Diapers Pack', 599)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 (Emergency SOS Item) -->
+                    <div class="med-item bg-red-50/50 border border-red-200 p-4 rounded-2xl shadow-sm flex flex-col justify-between hover:border-red-300 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-red-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">Emergency 24/7</span>
+                                <span class="text-xs font-semibold text-slate-500">Portable</span>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-base">Compressor Nebulizer Machine</h3>
+                            <p class="text-xs text-slate-500 mt-1">For breathing assistance, asthma & respiratory care.</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center pt-3 border-t border-red-100">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">₹1850</span>
+                                <span class="text-lg font-extrabold text-slate-900 ml-1">₹1490</span>
+                            </div>
+                            <button onclick="addToCart('Nebulizer Machine', 1490)" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shopping Cart & Bill Breakdown Widget -->
+                <div id="cart" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-md h-fit sticky top-20">
+                    <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-cart-shopping text-emerald-600"></i> Your Estimate Cart
+                        </h3>
+                        <button onclick="clearCart()" class="text-xs text-slate-400 hover:text-red-500">Clear</button>
+                    </div>
+
+                    <!-- Cart Item List -->
+                    <div id="cartItems" class="py-4 space-y-3 max-h-60 overflow-y-auto">
+                        <p id="emptyCartMsg" class="text-xs text-slate-400 text-center py-6">Your cart is empty. Click "+ Add to Cart" on any product above.</p>
+                    </div>
+
+                    <!-- Coupon Code Input -->
+                    <div class="pt-3 border-t border-slate-100">
+                        <div class="flex gap-2 mb-3">
+                            <input type="text" id="couponInput" placeholder="Promo (e.g. KMC10)" class="w-full text-xs px-3 py-2 border rounded-xl uppercase font-mono border-slate-200">
+                            <button onclick="applyCoupon()" class="bg-slate-800 text-white font-bold text-xs px-3 py-2 rounded-xl hover:bg-slate-700 transition">Apply</button>
+                        </div>
+                        <p id="couponMsg" class="text-[11px] text-emerald-600 font-medium mb-2 hidden"><i class="fa-solid fa-tag"></i> KMC Hospital 10% Discount Applied!</p>
+                    </div>
+
+                    <!-- Bill Summary -->
+                    <div class="bg-slate-50 p-3.5 rounded-2xl space-y-2 text-xs text-slate-600 mb-4">
+                        <div class="flex justify-between">
+                            <span>Subtotal:</span>
+                            <span id="subtotalVal" class="font-semibold text-slate-800">₹0</span>
+                        </div>
+                        <div class="flex justify-between text-emerald-600 font-medium">
+                            <span>Discount:</span>
+                            <span id="discountVal">-₹0</span>
+                        </div>
+                        <div class="flex justify-between text-slate-900 font-extrabold text-sm pt-2 border-t border-slate-200">
+                            <span>Estimated Total:</span>
+                            <span id="totalVal" class="text-emerald-700">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Choice & Direct WhatsApp Checkout -->
+                    <div class="space-y-2">
+                        <select id="deliveryChoice" class="w-full text-xs p-2.5 rounded-xl border border-slate-200 font-medium bg-white">
+                            <option value="KMC Hospital Ward Express Delivery">Delivery: KMC Hospital Ward / Room</option>
+                            <option value="Home Delivery (Maharajganj)">Delivery: Home Delivery (Maharajganj)</option>
+                            <option value="Self Store Pickup">Self Store Pickup</option>
+                        </select>
+                        
+                        <button onclick="checkoutCartToWhatsApp()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg transition">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Send Cart Order to WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW FEATURE 3: KMC Hospital Visitor & Ward Delivery Helper -->
+    <section id="kmc-helper" class="py-14 bg-gradient-to-r from-emerald-900 to-slate-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-white/10 shadow-2xl">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-full md:w-2/3 space-y-3">
+                        <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold px-3 py-1 rounded-full">
+                            <i class="fa-solid fa-hospital mr-1"></i> SPECIAL ASSISTANCE FOR KMC HOSPITAL VISITORS
+                        </span>
+                        <h2 class="text-2xl md:text-3xl font-bold" data-key="kmc_title">Fast Medicine Delivery directly to KMC Hospital Rooms</h2>
+                        <p class="text-slate-300 text-xs md:text-sm leading-relaxed" data-key="kmc_desc">
+                            Attending to a patient at KMC Hospital? Don't worry about leaving the bedside. Send us your doctor's slip or room number, and Life Plus staff will deliver required medicines & surgicals right to your hospital floor.
+                        </p>
+                        
+                        <!-- Quick KMC Delivery Form -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <input type="text" id="kmcPatientName" placeholder="Patient / Visitor Name" class="px-3.5 py-2.5 rounded-xl text-xs bg-slate-800 text-white border border-slate-700 focus:outline-none focus:border-emerald-400">
+                            <input type="text" id="kmcWardNo" placeholder="KMC Ward / Bed / Room No." class="px-3.5 py-2.5 rounded-xl text-xs bg-slate-800 text-white border border-slate-700 focus:outline-none focus:border-emerald-400">
+                        </div>
+
+                        <button onclick="sendKMCDeliveryReq()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow transition">
+                            <i class="fa-brands fa-whatsapp text-base"></i> Request KMC Ward Delivery Now
+                        </button>
+                    </div>
+
+                    <div class="w-full md:w-1/3 bg-slate-800/80 p-5 rounded-2xl border border-slate-700 text-center">
+                        <i class="fa-solid fa-truck-fast text-4xl text-emerald-400 mb-2"></i>
+                        <h4 class="font-bold text-sm text-white">Avg. Delivery Time</h4>
+                        <p class="text-2xl font-extrabold text-emerald-400 my-1">10 - 15 Mins</p>
+                        <p class="text-[11px] text-slate-400">Directly from store opposite KMC Main Gate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW FEATURE 4: Medicine Pill & Refill Reminder Tool -->
+    <section id="reminders" class="py-14 bg-white border-b border-slate-200">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest"><i class="fa-solid fa-clock"></i> REFILL & DOSE REMINDER</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-1" data-key="pill_title">Set Daily Medicine & Refill Alerts</h2>
+                <p class="text-slate-500 text-xs md:text-sm mt-1" data-key="pill_subtitle">Never miss a dose or run out of vital medicines. Save your reminder locally on your device.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Add Reminder Form -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-sm text-slate-900 mb-3"><i class="fa-solid fa-plus-circle text-emerald-600"></i> Add New Reminder</h3>
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <label class="block text-slate-600 font-semibold mb-1">Medicine Name:</label>
+                            <input type="text" id="remMedName" placeholder="e.g. BP Tablet / Insulin" class="w-full px-3 py-2 border rounded-xl border-slate-200 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-slate-600 font-semibold mb-1">Alert Time:</label>
+                            <input type="time" id="remTime" class="w-full px-3 py-2 border rounded-xl border-slate-200 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-slate-600 font-semibold mb-1">Repeat Frequency:</label>
+                            <select id="remFreq" class="w-full px-3 py-2 border rounded-xl border-slate-200 bg-white">
+                                <option value="Daily">Daily Once</option>
+                                <option value="Twice Daily">Twice Daily (Morning & Night)</option>
+                                <option value="Monthly Refill">Monthly Stock Refill Alert</option>
+                            </select>
+                        </div>
+                        <button onclick="saveReminder()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition">
+                            Save Alert
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Saved Reminders List -->
+                <div class="md:col-span-2 bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-900 mb-3 flex justify-between items-center">
+                            <span><i class="fa-solid fa-bell text-emerald-600"></i> Active Reminders</span>
+                            <span class="text-[11px] font-normal text-slate-400">Stored in browser</span>
+                        </h3>
+                        <div id="reminderList" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                            <!-- Reminders added dynamically -->
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 flex justify-between items-center text-xs">
+                        <span class="text-slate-500">Need monthly medicine refilled automatically?</span>
+                        <a href="https://wa.me/917309186695?text=Hi,%20mujhe%20monthly%20medicine%20refill%20subscription%20chahiye" target="_blank" class="text-emerald-600 font-bold hover:underline">
+                            Ask for Auto-Refill <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact Section -->
+    <section id="location" class="py-16 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest" data-key="contact_tag">STORE LOCATION & MAP</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-1" data-key="contact_title">Visit Life Plus Medical Store</h2>
+                <p class="text-slate-600 text-sm mt-1">Conveniently located directly opposite KMC Hospital main gate.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Details Card -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-md space-y-6">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-4">Contact Information</h3>
+                        
+                        <div class="space-y-4 text-sm">
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-location-dot text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Address:</h4>
+                                    <p class="text-slate-600 text-xs mt-0.5">Life Plus Medical Store, Near KMC Hospital Main Gate, Maharajganj, Uttar Pradesh 273303</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-phone text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Phone / WhatsApp:</h4>
+                                    <p class="text-slate-600 text-xs mt-0.5 font-bold">+91 73091 86695</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-clock text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Operating Hours:</h4>
+                                    <p class="text-slate-600 text-xs mt-0.5">Open <span class="text-emerald-600 font-bold">24 Hours / 7 Days</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex flex-col gap-2">
+                        <a href="tel:+917309186695" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-center py-3 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-phone"></i> Call Store Now
+                        </a>
+                        <a href="https://wa.me/917309186695?text=Hello%20Life%20Plus%20Medical%20Store" target="_blank" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-center py-3 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Direct
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Embedded Google Map -->
+                <div class="lg:col-span-2 bg-white p-2 rounded-3xl border border-slate-200 shadow-md h-[400px] overflow-hidden">
+                    <iframe class="w-full h-full rounded-2xl" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3550.849206240212!2d83.5600!3d27.1400!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDA4JzI0LjAiTiA4M8KwMzMnMzYuMCJF!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 border-t border-slate-800 text-xs">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <p class="font-bold text-sm">Life Plus Medical Store</p>
+                <p class="text-slate-400 mt-0.5">Near KMC Hospital, Maharajganj | 24/7 Pharmacy</p>
+            </div>
+            <p class="text-slate-500">&copy; <span id="year"></span> Life Plus Medical Store. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/917309186695?text=Hello%20Life%20Plus%20Medical%20Store,%20mujhe%20dawai%20mangwani%20hai." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl transition transform hover:scale-110 pulse-whatsapp"
+       aria-label="WhatsApp Order">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript Application Code -->
+    <script>
+        // Set dynamic year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Global Cart State
+        let cart = [];
+        let couponApplied = false;
+        let detectedMedsGlobal = [];
+
+        // Add item to shopping cart
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name);
+            if(existing) {
+                existing.qty++;
+            } else {
+                cart.push({ name: name, price: price, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        // Update Cart UI Breakdown
+        function updateCartUI() {
+            const container = document.getElementById('cartItems');
+            const emptyMsg = document.getElementById('emptyCartMsg');
+            const cartCountBadge = document.getElementById('cartCount');
+            
+            let totalQty = 0;
+            let subtotal = 0;
+
+            if(cart.length === 0) {
+                container.innerHTML = `<p id="emptyCartMsg" class="text-xs text-slate-400 text-center py-6">Your cart is empty. Click "+ Add to Cart" on any product above.</p>`;
+                cartCountBadge.textContent = '0';
+                document.getElementById('subtotalVal').textContent = '₹0';
+                document.getElementById('discountVal').textContent = '-₹0';
+                document.getElementById('totalVal').textContent = '₹0';
+                return;
+            }
+
+            let html = '';
+            cart.forEach((item, index) => {
+                totalQty += item.qty;
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+
+                html += `
+                <div class="flex justify-between items-center bg-slate-50 p-2.5 rounded-xl border border-slate-100 text-xs">
+                    <div class="pr-2">
+                        <p class="font-bold text-slate-800">${item.name}</p>
+                        <p class="text-slate-400 text-[10px]">₹${item.price} each</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center border rounded-lg bg-white overflow-hidden">
+                            <button onclick="changeQty(${index}, -1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 font-bold">-</button>
+                            <span class="px-2 text-xs font-bold text-slate-800">${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)" class="px-2 py-0.5 text-slate-600 hover:bg-slate-100 font-bold">+</button>
+                        </div>
+                        <span class="font-bold text-slate-900 w-12 text-right">₹${itemTotal}</span>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            cartCountBadge.textContent = totalQty;
+
+            let discount = couponApplied ? Math.round(subtotal * 0.10) : 0;
+            let finalTotal = subtotal - discount;
+
+            document.getElementById('subtotalVal').textContent = `₹${subtotal}`;
+            document.getElementById('discountVal').textContent = `-₹${discount}`;
+            document.getElementById('totalVal').textContent = `₹${finalTotal}`;
+        }
+
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if(cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function clearCart() {
+            cart = [];
+            couponApplied = false;
+            document.getElementById('couponMsg').classList.add('hidden');
+            updateCartUI();
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('couponInput').value.trim().toUpperCase();
+            if(code === 'KMC10') {
+                couponApplied = true;
+                document.getElementById('couponMsg').classList.remove('hidden');
+                updateCartUI();
+            } else {
+                alert('Invalid code. Try using KMC10 for 10% discount.');
+            }
+        }
+
+        function checkoutCartToWhatsApp() {
+            if(cart.length === 0) {
+                alert('Your cart is empty! Please add items before checking out.');
+                return;
+            }
+
+            const delivery = document.getElementById('deliveryChoice').value;
+            let cartText = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const lineTotal = item.price * item.qty;
+                total += lineTotal;
+                cartText += `%0A- ${item.name} (x${item.qty}) = ₹${lineTotal}`;
+            });
+
+            let discount = couponApplied ? Math.round(total * 0.10) : 0;
+            let netTotal = total - discount;
+
+            const message = `Hello Life Plus Medical Store,%0A%0A*NEW CART ORDER ESTIMATE:*${cartText}%0A%0A*Subtotal:* ₹${total}%0A*Discount:* -₹${discount}%0A*Estimated Total:* ₹${netTotal}%0A*Delivery Option:* ${encodeURIComponent(delivery)}`;
+
+            window.open(`https://wa.me/917309186695?text=${message}`, '_blank');
+        }
+
+        // Feature 1: Prescription OCR Simulator
+        function processPrescriptionImage(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('scanPlaceholder').classList.add('hidden');
+                document.getElementById('scanActiveArea').classList.remove('hidden');
+                document.getElementById('rxPreviewImg').src = e.target.result;
+
+                // Simulate OCR Extraction
+                setTimeout(() => {
+                    detectedMedsGlobal = ['Paracetamol 650mg (Q.S.)', 'Amoxicillin 500mg', 'Pantoprazole 40mg', 'Multivitamin Syrup'];
+                    
+                    const listEl = document.getElementById('detectedMedList');
+                    listEl.innerHTML = detectedMedsGlobal.map(m => `<li>${m}</li>`).join('');
+                    
+                    document.getElementById('ocrResultBox').classList.remove('hidden');
+                }, 1500);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function sendExtractedRxToWhatsApp() {
+            const medText = detectedMedsGlobal.join(', ');
+            const url = `https://wa.me/917309186695?text=Hello%20Life%20Plus%20Medical%20Store,%20I%20scanned%20my%20prescription.%20Please%20provide%20these%20medicines:%20${encodeURIComponent(medText)}`;
+            window.open(url, '_blank');
+        }
+
+        // Feature 3: KMC Delivery Direct Helper
+        function sendKMCDeliveryReq() {
+            const name = document.getElementById('kmcPatientName').value.trim();
+            const ward = document.getElementById('kmcWardNo').value.trim();
+
+            if(!name || !ward) {
+                alert('Please enter Patient Name and KMC Ward/Room number.');
+                return;
+            }
+
+            const text = `URGENT KMC HOSPITAL WARD DELIVERY:%0A- Patient Name: ${encodeURIComponent(name)}%0A- Ward / Bed No: ${encodeURIComponent(ward)}%0APlease contact me for medicine list.`;
+            window.open(`https://wa.me/917309186695?text=${text}`, '_blank');
+        }
+
+        // Feature 4: Pill & Refill Reminder App (LocalStorage)
+        function loadReminders() {
+            const saved = JSON.parse(localStorage.getItem('lifeplus_reminders') || '[]');
+            const listEl = document.getElementById('reminderList');
+            
+            if(saved.length === 0) {
+                listEl.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No active alerts set yet.</p>`;
+                return;
+            }
+
+            listEl.innerHTML = saved.map((rem, i) => `
+                <div class="flex justify-between items-center bg-white p-2.5 rounded-xl border border-slate-200 text-xs">
+                    <div>
+                        <span class="font-bold text-slate-800">${rem.name}</span>
+                        <span class="text-[10px] text-emerald-600 font-bold block"><i class="fa-solid fa-clock"></i> ${rem.time} (${rem.freq})</span>
+                    </div>
+                    <button onclick="deleteReminder(${i})" class="text-red-400 hover:text-red-600 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function saveReminder() {
+            const name = document.getElementById('remMedName').value.trim();
+            const time = document.getElementById('remTime').value;
+            const freq = document.getElementById('remFreq').value;
+
+            if(!name || !time) {
+                alert('Please enter Medicine Name and Time.');
+                return;
+            }
+
+            const saved = JSON.parse(localStorage.getItem('lifeplus_reminders') || '[]');
+            saved.push({ name, time, freq });
+            localStorage.setItem('lifeplus_reminders', JSON.stringify(saved));
+            
+            document.getElementById('remMedName').value = '';
+            document.getElementById('remTime').value = '';
+            loadReminders();
+        }
+
+        function deleteReminder(index) {
+            const saved = JSON.parse(localStorage.getItem('lifeplus_reminders') || '[]');
+            saved.splice(index, 1);
+            localStorage.setItem('lifeplus_reminders', JSON.stringify(saved));
+            loadReminders();
+        }
+
+        // Feature 5: Emergency SOS Mode Toggle
+        let sosMode = false;
+        function toggleSOSMode() {
+            sosMode = !sosMode;
+            const banner = document.getElementById('sosBanner');
+            const btnText = document.getElementById('sosBtnText');
+            
+            if(sosMode) {
+                banner.classList.remove('hidden');
+                btnText.textContent = "Exit SOS Mode";
+            } else {
+                banner.classList.add('hidden');
+                btnText.textContent = "Night SOS Mode";
+            }
+        }
+
+        // Search Medicine Grid Filter
+        function filterMedicines() {
+            const input = document.getElementById('medicineSearch').value.toLowerCase();
+            const items = document.querySelectorAll('#medicineGrid .med-item');
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? "flex" : "none";
+            });
+        }
+
+        // Feature 6: Hindi / English Language Switcher
+        let isHindi = true;
+        const translations = {
+            top_247: { hi: "24/7 OPEN", en: "24/7 OPEN" },
+            top_location: { hi: "KMC Hospital Ke Paas, Maharajganj", en: "Near KMC Hospital, Maharajganj" },
+            sub_title: { hi: "Medical & Healthcare", en: "Medical & Healthcare" },
+            nav_home: { hi: "Home", en: "Home" },
+            nav_rx: { hi: "Rx Scanner", en: "Rx Scanner" },
+            nav_shop: { hi: "Quick Shop & Cart", en: "Quick Shop & Cart" },
+            nav_kmc: { hi: "KMC Hospital Info", en: "KMC Hospital Info" },
+            nav_pill: { hi: "Pill Alert", en: "Pill Alert" },
+            nav_contact: { hi: "Contact", en: "Contact" },
+            hero_badge: { hi: "KMC Hospital Main Gate Ke Saamne", en: "Located Right Opposite KMC Hospital Entrance" },
+            hero_title: { hi: "Aapki Sehat, Hamari Zimmedari.<br/><span class='text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400'>100% Genuine Medicines & Urgent Delivery</span>", en: "Your Health, Our Responsibility.<br/><span class='text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400'>100% Genuine Medicines & Express Delivery</span>" },
+            rx_title: { hi: "Doctor Prescription Scan Karein", en: "Scan & Read Prescription" },
+            rx_subtitle: { hi: "Parchi ki photo kheinchein. Hamari AI slip se dawaiyo ke naam auto extract karegi.", en: "Take a photo of doctor slip to automatically extract medicine names." }
+        };
+
+        function toggleLanguage() {
+            isHindi = !isHindi;
+            const lang = isHindi ? 'hi' : 'en';
+            document.getElementById('langBtnText').textContent = isHindi ? 'EN / हिंदी' : 'हिंदी / EN';
+
+            Object.keys(translations).forEach(key => {
+                const el = document.querySelector(`[data-key="${key}"]`);
+                if(el) {
+                    el.innerHTML = translations[key][lang];
+                }
+            });
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            loadReminders();
+        };
+    </script>
+</body>
+</html>
